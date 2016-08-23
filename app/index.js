@@ -29,7 +29,7 @@ function initialize (config) {
 
   // Load Files
   var authenticate          = require('./middleware/authenticate.js')      (config);
-  var error_handler         = require('./middleware/error_handler.js')     (config);
+  var error_handler         = require('./middleware/error_handler.js')     (config, raneto);
   var route_login           = require('./routes/login.route.js')           (config);
   var route_login_page      = require('./routes/login_page.route.js')      (config);
   var route_logout          = require('./routes/logout.route.js');
