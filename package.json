@@ -24,6 +24,7 @@
   "bin": "./bin/raneto",
   "main": "./app",
   "scripts": {
+    "compile": "babel app/raneto-core/src --out-dir app/raneto-core/lib",
     "start": "DEBUG=raneto node example/server.js",
     "start_win": "set DEBUG=raneto&&node example/server.js",
     "test": "mocha --reporter spec",

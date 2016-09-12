@@ -207,7 +207,8 @@ var Raneto = function () {
           slug: slug,
           title: meta.title ? meta.title : this.slugToTitle(slug),
           body: html,
-          excerpt: _s.prune(_s.stripTags(_s.unescapeHTML(html)), this.config.excerpt_length || 400)
+          excerpt: _s.prune(_s.stripTags(_s.unescapeHTML(html)), this.config.excerpt_length || 400),
+          text: _s.stripTags(_s.unescapeHTML(html))
         };
       } catch (e) {
         if (this.config.debug) {
@@ -368,7 +369,23 @@ var Raneto = function () {
 
       results.forEach(function (result) {
         var page = _this3.getPage(_this3.config.content_dir + result.ref);
-        page.excerpt = page.excerpt.replace(new RegExp('(' + query + ')', 'gim'), '<span class="search-query">$1</span>');
+        if (!page.text.includes(query)) {
+          return;
+        }
+        var startPoint = page.text.indexOf(query);
+        var padding = _this3.config.excerpt_length / 2;
+        var beginning = Math.max(startPoint - padding, 0);
+        var end = Math.min(startPoint + _this3.config.excerpt_length, page.text.length);
+        var leadingElipsis = beginning === 0 ? '' : '...';
+        var trailingElipsis = end === page.text.length ? '' : '...';
+        var substring = page.text.substring(beginning, end).trim();
+        if (!substring.length) {
+          return;
+        }
+
+        var baseExcerpt = leadingElipsis + substring + trailingElipsis;
+
+        page.excerpt = baseExcerpt.replace(new RegExp('(' + query + ')', 'gim'), '<span class="search-query">$1</span>');
         searchResults.push(page);
       });
 
