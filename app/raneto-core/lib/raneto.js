@@ -308,7 +308,7 @@ var Raneto = function () {
               val.files.push({
                 slug: slug,
                 title: meta.title ? meta.title : _this2.slugToTitle(slug),
-                active: activePageSlug.trim() === '/' + slug,
+                active: patch_content_dir(activePageSlug.trim()) === patch_content_dir('/' + slug),
                 sort: pageSort
               });
             })();
