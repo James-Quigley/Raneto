@@ -369,10 +369,11 @@ var Raneto = function () {
 
       results.forEach(function (result) {
         var page = _this3.getPage(_this3.config.content_dir + result.ref);
-        if (!page.text.includes(query)) {
+        var lower = page.text.toLowerCase();
+        if (!lower.includes(query)) {
           return;
         }
-        var startPoint = page.text.indexOf(query);
+        var startPoint = lower.indexOf(query);
         var padding = _this3.config.excerpt_length / 2;
         var beginning = Math.max(startPoint - padding, 0);
         var end = Math.min(startPoint + _this3.config.excerpt_length, page.text.length);

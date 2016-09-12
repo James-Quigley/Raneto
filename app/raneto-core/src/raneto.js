@@ -285,10 +285,11 @@ class Raneto {
 
     results.forEach(result => {
       const page = this.getPage(this.config.content_dir + result.ref);
-      if (!page.text.includes(query)) {
+      const lower = page.text.toLowerCase();
+      if (!lower.includes(query)) {
         return;
       }
-      const startPoint = page.text.indexOf(query);
+      const startPoint = lower.indexOf(query);
       const padding = this.config.excerpt_length / 2;
       const beginning = Math.max(startPoint - padding, 0);
       const end = Math.min((startPoint + this.config.excerpt_length), page.text.length);
