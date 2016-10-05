@@ -10,7 +10,7 @@ var moment = require('moment');
 function route_sitemap(config, raneto) {
   return function (req, res, next) {
 
-    var hostname = req.headers.host;
+    var hostname = path.normalize(raneto.config.base_url);
     var content_dir = path.normalize(raneto.config.content_dir);
 
     // get list md files
@@ -30,7 +30,7 @@ function route_sitemap(config, raneto) {
 
     // create sitemap.xml
     var sitemap = sm.createSitemap({
-      hostname: 'http://' + hostname,
+      hostname: 'https://' + hostname,
       cacheTime: 600000
     });
 
