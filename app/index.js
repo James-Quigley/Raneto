@@ -117,8 +117,11 @@ function initialize (config) {
   // Redirect rules
   if (config.redirects) {
     app.use(function (req, res, next) {
-      var redirectUrl = config.redirects[req.originalUrl];
+      var redirectUrl = config.redirects[req.baseUrl + req.path];
       if (redirectUrl) {
+        if (Object.keys(req.query).length > 0) {
+          redirectUrl += '?' + req.originalUrl.split('?')[1];
+        }
         res.redirect(301, redirectUrl);
       } else {
         next();
