@@ -114,6 +114,18 @@ function initialize (config) {
 
   }
 
+  // Redirect rules
+  if (config.redirects) {
+    app.use(function (req, res, next) {
+      var redirectUrl = config.redirects[req.originalUrl];
+      if (redirectUrl) {
+        res.redirect(301, redirectUrl);
+      } else {
+        next();
+      }
+    });
+  }
+
   // Router for / and /index with or without search parameter
   if (config.googleoauth === true) {
     router.get('/:var(index)?', oauth2.required, route_search, route_home);
