@@ -114,7 +114,10 @@ function initialize (config) {
 
   }
 
-  // Redirect rules
+  /**
+   * Allows for redirects specified in config
+   * Attaches any query string to the redirected req
+   */
   if (config.redirects) {
     app.use(function (req, res, next) {
       var redirectUrl = config.redirects[req.baseUrl + req.path];
