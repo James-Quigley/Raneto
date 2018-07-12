@@ -117,7 +117,7 @@ function initialize (config) {
   /**
    * Allows for redirects specified in config
    * Attaches any query string to the redirected req
-   * 
+   *
    * config: {
    *  redirects: {
    *    '/original':'/redirected'
