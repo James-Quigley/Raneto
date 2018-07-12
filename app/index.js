@@ -11,6 +11,7 @@ var moment        = require('moment');
 var hogan         = require('hogan-express');
 var session       = require('express-session');
 var passport      = require('passport');
+var httpsRedirect = require('express-https-redirect');
 
 function initialize (config) {
 
@@ -62,6 +63,9 @@ function initialize (config) {
   app.engine('html', hogan);
 
   // Setup Express
+  if (config.https_redirect) {
+    app.use('/', httpsRedirect());
+  }
   app.use(favicon(config.public_dir + '/favicon.ico'));
   app.use(logger('dev'));
   app.use(body_parser.json());
