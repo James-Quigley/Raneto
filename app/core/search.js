@@ -29,6 +29,9 @@ function getStemmers (config) {
 }
 
 function handler (query, config) {
+  // Custom config for no tracking on the search page
+  config.metaRobots = true;
+
   const contentDir = utils.normalizeDir(path.normalize(config.content_dir));
   const documents = glob
     .sync(contentDir + '**/*.md')
